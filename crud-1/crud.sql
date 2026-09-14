@@ -45,8 +45,8 @@ CREATE TABLE tennis_profile(
     FOREIGN KEY(player_id) REFERENCES atp_rankings(id) -- creating foreign key relationship with parent table atp_rankings with player_id which references the id in atp_rankings table
 );
 
--- NOTE: Now as we created a foreign key relarionship with the parent table atp_rankings and child table is tennis_profile 
--- We cannot delte the Parent table ie: atp_rankings first as there is a referential Integrity in between those 2 tables
+-- NOTE: Now as we created a foreign key relationship with the parent table atp_rankings and child table is tennis_profile 
+-- We cannot delte the Parent table ie: atp_rankings first as there is a Referential Integrity in between those 2 tables
 -- First we have to delete the child table which is tennis_profile and then the parent table atp_rankings
 -- While creating we create the parent table first and then the child table 
 -- and while deleting the child table first and then the parent table
@@ -64,7 +64,7 @@ SELECT * FROM tennis_profile;
 
 
 -- ON UPDATE and ON DELETE
-
+--  deleted above tennis_profile table and creating below again for showing ON UPDATE and ON DELETE 
 CREATE TABLE tennis_profile(
 	id INT PRIMARY KEY AUTO_INCREMENT, 
     player_alias VARCHAR(50),
@@ -87,5 +87,115 @@ SELECT * FROM atp_rankings;
 
 SELECT * FROM tennis_profile;
 
+-- showing all the distinct names in the table atp_rankings
+SELECT DISTINCT name from atp_rankings; 
+
+
+-- using sakila database from below
+USE sakila;
+
+-- gives distinct rental rates from rental_rate column in film table
+SELECT DISTINCT rental_rate from film;
+
+-- gives rental rates with distinct length from film table (using distinct to get unique comination of 2 columns applied to every row
+SELECT DISTINCT rental_rate, length from film;
+
+-- this is an error as DISTINCT can only be applied to the entire selected row/combination and not one particular column
+-- The problem is simply that SQL syntax doesn't allow DISTINCT to be placed before an individual column like that.
+-- DISTINCT comes immediately after SELECT: like shown in above example
+
+SELECT rental_rate, DISTINCT length from film;
+
+-- ROUND
+
+SELECT 1234; -- SELECT means give me the output 
+
+-- gives output 1234.57
+SELECT ROUND(1234.567, 2) as rounded_num;
+
+
+-- WHERE
+-- WHERE clause works as filter and it works only for rows only bascally filtering rows as per requirement
+
+-- printing all films whose rating="PG-13"
+SELECT * FROM film WHERE rating = "PG-13";
+
+-- printing all films whose rating="PG-13" or "g" NOTE: sal is case insensitive so even if we give "g" small g it will give "G" rating films as well
+SELECT * FROM film WHERE rating = "PG-13" || rating = "g";
+
+-- printing all films whose rating="PG-13" or "g" NOTE: If we specifically want only small g films then we have to use BINARY before the column then it will
+-- become case sensitive and only give small g rating films output 
+-- Note: BINARY only works for strings
+SELECT * FROM FILM WHERE rating = "PG-13" || BINARY rating = "g";
+
+
+-- Find all films with rating not euqal to PG-13
+SELECT * FROM film WHERE rating != "PG-13"; -- we can also use <> instead of != so it will be WHERE rating <> "PG-13"
+
+
+-- Logical operator
+-- NOTE: Always use parenthesis when multiple logical operators are being used as the higest takes precendence first
+
+SELECT * FROM film
+WHERE (rating = 'PG-13' OR rental_rate = 0.99) AND (release_year = 2006);
+
+
+SELECT title, rental_duration from film
+	WHERE
+		rental_duration = 3
+        OR rental_duration = 4
+        OR rental_duration = 6;
+        
+/*
+	IN --> Syntactical Sugar
+    means rather than writing 
+    rental_duration = 3
+	OR rental_duration = 4
+	OR rental_duration = 6;
+    
+    we can directly use IN (3,4,6) or if we dont want the films with rental_duration 3,4,6 then  NOT IN (3,4,6)
+*/
+
+SELECT * FROM film WHERE rental_duration IN (3,4,6);
+
+SELECT * FROM film WHERE rental_duration NOT IN (3,4,6);
+
+
+-- ORDER BY
+-- used for sorting the results
+-- NOTE: Mysql always guarentees rows are always sorted on Primary Key in ascending order means they are always sorted 
+-- by default we use ORDER BY it sortes in ascening order on whatever column we are applying on if we want in descending order we have to use DESC
+
+SELECT * FROM film
+ORDER BY title DESC; -- it gives output starting from the title which starts with Z
+
+ -- first it sorts based on the rental_duration in ascending order then takes title with descending order and sorts both accordingly and returns output
+ -- If both the rows have same sorting values suppose row 1 --> 2 B and row 2 also same --> 2 B then it takes id also as a part and sorts accordingly
+ -- For the above example 2 is the rental_duration and B is the title
+SELECT rental_duration, title FROM film
+ORDER BY rental_duration, title DESC;
+
+-- Assignment: Films with a Rating of PG-13 Sorted by their titles
+-- when doing operations like this it is best to filter first and then sort as sort takes O(N log N) time complexity if we filter first it will be reducing 
+-- the overall time complexity as we will sorting on millions and billions of records so,
+-- Filter --> Sort  (Filter first and then Sort)
+SELECT title, rating FROM film
+WHERE rating='PG-13'
+ORDER BY title;
+
+-- ORDER BY with DISTINCT
+-- NOTE: when we are using DISTINCT with ORDER BY  we have to keep in mind that the columns we are applying DISTINCT on should also be included in ORDER BY
+-- 	as if they are not mentioned at both of those there will be a vaugeness in between them and it cannot sort properly 
+SELECT distinct rental_rate FROM film
+ORDER BY title DESC;
+-- we get this error below 
+-- Error Code: 3065. Expression #1 of ORDER BY clause is not in SELECT list, references column 'sakila.film.title' which is not in SELECT list; this is incompatible with DISTINCT
+
+-- so we can use it like this 
+SELECT distinct title FROM film
+ORDER BY title DESC;
+-- OR 
+SELECT distinct title, rental_rate FROM film
+ORDER BY title DESC;
 
 
