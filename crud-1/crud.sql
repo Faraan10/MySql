@@ -91,9 +91,12 @@ SELECT * FROM tennis_profile;
 SELECT DISTINCT name from atp_rankings; 
 
 
+-- NOTE: -- **** represents new topic
+-- **** crud 2 starts from below
 -- using sakila database from below
 USE sakila;
 
+-- *****
 -- gives distinct rental rates from rental_rate column in film table
 SELECT DISTINCT rental_rate from film;
 
@@ -106,14 +109,16 @@ SELECT DISTINCT rental_rate, length from film;
 
 SELECT rental_rate, DISTINCT length from film;
 
--- ROUND
 
+-- *****
+-- ROUND
 SELECT 1234; -- SELECT means give me the output 
 
 -- gives output 1234.57
 SELECT ROUND(1234.567, 2) as rounded_num;
 
 
+-- *****
 -- WHERE
 -- WHERE clause works as filter and it works only for rows only bascally filtering rows as per requirement
 
@@ -133,6 +138,7 @@ SELECT * FROM FILM WHERE rating = "PG-13" || BINARY rating = "g";
 SELECT * FROM film WHERE rating != "PG-13"; -- we can also use <> instead of != so it will be WHERE rating <> "PG-13"
 
 
+-- *****
 -- Logical operator
 -- NOTE: Always use parenthesis when multiple logical operators are being used as the higest takes precendence first
 
@@ -161,6 +167,7 @@ SELECT * FROM film WHERE rental_duration IN (3,4,6);
 SELECT * FROM film WHERE rental_duration NOT IN (3,4,6);
 
 
+-- *****
 -- ORDER BY
 -- used for sorting the results
 -- NOTE: Mysql always guarentees rows are always sorted on Primary Key in ascending order means they are always sorted 
@@ -175,6 +182,7 @@ ORDER BY title DESC; -- it gives output starting from the title which starts wit
 SELECT rental_duration, title FROM film
 ORDER BY rental_duration, title DESC;
 
+-- *****
 -- Assignment: Films with a Rating of PG-13 Sorted by their titles
 -- when doing operations like this it is best to filter first and then sort as sort takes O(N log N) time complexity if we filter first it will be reducing 
 -- the overall time complexity as we will sorting on millions and billions of records so,
@@ -183,6 +191,7 @@ SELECT title, rating FROM film
 WHERE rating='PG-13'
 ORDER BY title;
 
+-- *****
 -- ORDER BY with DISTINCT
 -- NOTE: when we are using DISTINCT with ORDER BY  we have to keep in mind that the columns we are applying DISTINCT on should also be included in ORDER BY
 -- 	as if they are not mentioned at both of those there will be a vaugeness in between them and it cannot sort properly 
@@ -197,5 +206,13 @@ ORDER BY title DESC;
 -- OR 
 SELECT distinct title, rental_rate FROM film
 ORDER BY title DESC;
+
+
+-- ****
+-- NULL (this is not same as programming languages) it represents emptiness
+
+SELECT 3 = 3; -- returns true as output
+SELECT 3 = 2; -- returns false as output
+SELECT 3 = NULL; -- retuns NULL as output
 
 
