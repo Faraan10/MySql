@@ -209,10 +209,95 @@ ORDER BY title DESC;
 
 
 -- ****
--- NULL (this is not same as programming languages) it represents emptiness
+-- NULL (this is not same as programming languages) it represents emptiness so when comparing anything with NULL it returns NULL
 
-SELECT 3 = 3; -- returns true as output
-SELECT 3 = 2; -- returns false as output
+SELECT 3 = 3; -- returns 1 as output
+SELECT 3 = 2; -- returns 0 as output
 SELECT 3 = NULL; -- retuns NULL as output
+SELECT NULL = true; -- retuns NULL as output
+
+-- question
+SELECT * FROM film
+WHERE title != NULL; -- here this will return output as null for the entire table for every column as we will only get correct output when 
+-- the title is not null will be true but when we compare title to emptiness there is  nothing to compare with so it returns null 
+-- So when we want to use NUll we have to use it like below
+
+SELECT * FROM film
+WHERE title is NOT NULL; -- this gives correct output, we have to use IS NULL or IS NOT NULL
+
+-- If a column is NULLABLE always check before comparison
+-- for example below PSP is NULLABLE column as it can be NULL if there are new students as they will not have psp (problem solving percentage)
+SELECT * FROM students
+WHERE psp >= 80 OR psp IS NULL;
+
+
+-- ****
+-- LIKE
+
+-- Theory of Computation
+-- Pattern Matching
+
+-- It will return all the films whose title starts with letter D
+-- Note: mysql is case insensitive so it returns all small and capital D if present in rows
+SELECT * FROM film WHERE title LIKE 'D%';
+
+-- Assignment: Find all the films with 'Love' in the title
+SELECT * FROM film WHERE title LIKE '%Love%';
+
+-- Assignment: Find all the Students whose Name ends with 'e'
+-- for example using students there is no table with students 
+SELECT * FROM students WHERE title LIKE '%e';
+
+-- Assignment: Find all the Students whose Name ends with 'e' and is 4 characters long
+SELECT * FROM students WHERE title LIKE '___e';
+
+
+-- ****
+-- LIMIT and OFFSET
+
+-- Pagination
+
+-- LIMIT --> Restricts the number of rows being returned
+SELECT * FROM film LIMIT 10;
+
+SELECT * FROM film
+ORDER BY title DESC
+LIMIT 10;
+
+-- OFFSET --> Skip N rows before returning
+
+-- Skip the first 10 rows, then return 10
+
+SELECT * FROM film
+LIMIT 10
+OFFSET 10;
+
+-- NOTE: We can use LIMIT without OFFFSET but
+-- NOTE: We cannot use OFFSET without LIMIT as Production DB consists of millions and billions of data and if we did not use LIMIT when returning the from
+-- OFFSET point onwards it would return the entire data which will crash the DB
+
+
+-- Assignment: Get 2nd Highest PSP using LIMIT and OFFSET
+
+SELECT * FROM students
+ORDER BY psp DESC
+LIMIT 1
+OFFSET 1;
+
+
+-- UPDATE
+
+UPDATE film SET title = 'Ford vs Ferrari'
+WHERE film_id = 1;
+
+SELECT * FROM film;
+
+UPDATE film SET title = 'Ford vs Ferrari'; -- this will not allow the command to execute as it will update title for entire columns as 
+-- by default we are in safe mode if you want to change it and update all records then use this below
+SET @@SQL_SAFE_UPDATES = 0; -- Set this to like this and then run command it will update all titles
+-- Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
+
+
+
 
 
