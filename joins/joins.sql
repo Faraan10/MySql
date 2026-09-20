@@ -1,6 +1,6 @@
 CREATE DATABASE scaler;
 
-USE scaler;
+USE scaler; -- use this db to access the tables below
 
 CREATE TABLE batches(
 	id INT PRIMARY KEY AUTO_INCREMENT,
