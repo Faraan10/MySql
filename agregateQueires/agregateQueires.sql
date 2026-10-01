@@ -79,4 +79,4 @@ SELECT * FROM film;
 SELECT COUNT(*), release_year FROM film
 GROUP BY(release_year);
 
-
+SELECT @@sql_safe_updates;
