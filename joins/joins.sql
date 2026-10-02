@@ -142,3 +142,8 @@ ON e1.manager_id = e2.id;
 SELECT e1.name as 'Employee', e2.name as 'Manager' FROM employees e1
 LEFT JOIN employees e2
 ON e1.manager_id = e2.id;
+
+
+SELECT DISTINCT employee_name AS 'manager_name' FROM Employees
+WHERE employee_id IN (SELECT DISTINCT manager_id FROM Employees WHERE manager_id IS NOT NULL)
+ORDER BY manager_name DESC;
