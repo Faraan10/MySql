@@ -24,7 +24,7 @@ SELECT AVG(psp) FROM students;
 SELECT COUNT(name) FROM students; -- but suppose in one column the name is null then the aggregate function will discard that column and give output 1 less
 -- so if there are 10 records and 1 column does not have name then COUNT(name) will return 9
 
-SELECT COUNT('MANGO') FROM students; -- returns number of rows we have as anything after SELECT is printing output so prints no of rows count
+SELECT COUNT('MANGO') FROM students; -- returns number of rows count as anything after SELECT is printing output so prints no of rows count
 
 SELECT 10 FROM students; -- prints 10 6 times as there are 6 rows in total students table
 
@@ -46,7 +46,7 @@ GROUP BY
 
 SELECT COUNT(*), batch_id FROM students
 GROUP BY(batch_id); 
--- this returns count of students in that particular batch_id 
+-- this returns total count of students in that particular batch_id 
 -- so with batch_id 1 there are 3 students
 -- with batch_id 2 there is 1 student etc
 
@@ -60,9 +60,10 @@ GROUP BY(batch_id);
 SELECT name, batch_id FROM students
 GROUP BY(batch_id); 
 -- for this we will get an error as rows length mismatch, as there can be muliple names or no names in the column as it is not agregated
--- so for this above to work we also have to include name in the group by by default if we want that also as output
+-- so for this above to work we also have to include name in the group by default if we want that also as output
 SELECT name, batch_id FROM students
 GROUP BY batch_id, name;  -- when having muliple we should not use ()
+
 
 -- Find the AVG batch wise psp
 
