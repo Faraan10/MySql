@@ -90,7 +90,6 @@ FROM students
 GROUP BY batch_id;
 
 -- step 2: 
-
 SELECT * FROM students
 WHERE psp >= ALL (
 	SELECT 
