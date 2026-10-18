@@ -29,3 +29,17 @@ HAVING
 ORDER BY
     r1.region_name,
     s1.seller_name;
+
+
+
+SELECT
+    e1.employee_id,
+    e1.first_name,
+    e1.last_name
+FROM employees e1
+JOIN employees e2
+    ON e1.manager_id = e2.employee_id
+WHERE
+    e1.hire_date < e2.hire_date
+ORDER BY
+    e1.employee_id
