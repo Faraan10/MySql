@@ -1,3 +1,5 @@
+-- Active Sellers and Delivered Items by Region (2024)
+
 SELECT
     r1.region_name,
     s1.seller_id,
@@ -31,6 +33,7 @@ ORDER BY
     s1.seller_name;
 
 
+-- Joined first
 
 SELECT
     e1.employee_id,
@@ -43,3 +46,27 @@ WHERE
     e1.hire_date < e2.hire_date
 ORDER BY
     e1.employee_id
+
+
+
+-- Students and examinations
+
+SELECT 
+    s1.student_id,
+    s1.student_name,
+    sb1.subject_name,
+    COUNT(e1.subject_name) AS 'attended_exams'
+FROM 
+    students s1
+CROSS JOIN 
+    subjects sb1
+LEFT JOIN 
+    examinations e1 
+    ON s1.student_id = e1.student_id
+    AND sb1.subject_name = e1.subject_name
+GROUP BY 
+    s1.student_name, 
+    sb1.subject_name
+ORDER BY
+    s1.student_id,
+    sb1.subject_name
