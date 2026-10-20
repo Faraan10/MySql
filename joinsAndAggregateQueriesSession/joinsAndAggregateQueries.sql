@@ -1,4 +1,44 @@
--- Active Sellers and Delivered Items by Region (2024)
+-- Q3. Joined first
+
+SELECT
+    e1.employee_id,
+    e1.first_name,
+    e1.last_name
+FROM employees e1
+JOIN employees e2
+    ON e1.manager_id = e2.employee_id
+WHERE
+    e1.hire_date < e2.hire_date
+ORDER BY
+    e1.employee_id
+
+
+
+-- Q5. Students and examinations
+
+SELECT 
+    s1.student_id,
+    s1.student_name,
+    sb1.subject_name,
+    COUNT(e1.subject_name) AS 'attended_exams'
+FROM 
+    students s1
+CROSS JOIN 
+    subjects sb1
+LEFT JOIN 
+    examinations e1 
+    ON s1.student_id = e1.student_id
+    AND sb1.subject_name = e1.subject_name
+GROUP BY 
+    s1.student_name, 
+    sb1.subject_name
+ORDER BY
+    s1.student_id,
+    sb1.subject_name
+
+
+
+-- Q6. Active Sellers and Delivered Items by Region (2024)
 
 SELECT
     r1.region_name,
@@ -32,41 +72,26 @@ ORDER BY
     r1.region_name,
     s1.seller_name;
 
+    
 
--- Joined first
-
-SELECT
-    e1.employee_id,
-    e1.first_name,
-    e1.last_name
-FROM employees e1
-JOIN employees e2
-    ON e1.manager_id = e2.employee_id
-WHERE
-    e1.hire_date < e2.hire_date
-ORDER BY
-    e1.employee_id
-
-
-
--- Students and examinations
-
+-- Q8. Project Workload Analysis by Country
 SELECT 
-    s1.student_id,
-    s1.student_name,
-    sb1.subject_name,
-    COUNT(e1.subject_name) AS 'attended_exams'
+    p1.project_name,
+    e1.country,
+    COUNT(DISTINCT e1.emp_id) AS 'employee_count'
 FROM 
-    students s1
-CROSS JOIN 
-    subjects sb1
-LEFT JOIN 
-    examinations e1 
-    ON s1.student_id = e1.student_id
-    AND sb1.subject_name = e1.subject_name
-GROUP BY 
-    s1.student_name, 
-    sb1.subject_name
+    project p1
+INNER JOIN 
+    assignment a1 
+    ON p1.project_id = a1.project_id
+INNER JOIN 
+    employee e1 
+    ON a1.emp_id = e1.emp_id
+WHERE 
+    p1.project_status = 'Active'
+GROUP BY
+    p1.project_name,
+    e1.country
 ORDER BY
-    s1.student_id,
-    sb1.subject_name
+    p1.project_name,
+    e1.country;
