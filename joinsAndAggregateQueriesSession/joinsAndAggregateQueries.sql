@@ -13,6 +13,23 @@ ORDER BY
     e1.employee_id
 
 
+-- Q4. Students in Departments
+
+SELECT 
+    d1.dept_name,
+    COUNT(s1.student_id) AS 'student_number'
+FROM
+    student s1
+RIGHT JOIN 
+    department d1
+    ON s1.dept_id = d1.dept_id
+GROUP BY
+    d1.dept_name
+ORDER BY
+    COUNT(s1.student_id) DESC,
+    d1.dept_name;
+
+
 
 -- Q5. Students and examinations
 
@@ -72,7 +89,7 @@ ORDER BY
     r1.region_name,
     s1.seller_name;
 
-    
+
 
 -- Q8. Project Workload Analysis by Country
 SELECT 
@@ -95,3 +112,35 @@ GROUP BY
 ORDER BY
     p1.project_name,
     e1.country;
+
+
+
+-- Q10. Overloaded Employees with Skill and Assignment Details
+
+SELECT
+    e1.emp_name,
+    d1.dept_name,
+    e1.country,
+    SUM(a1.allocation_pct) AS 'total_allocation'
+FROM 
+    employee e1
+INNER JOIN
+    assignment a1 
+    ON e1.emp_id = a1.emp_id
+INNER JOIN 
+    department d1
+    ON e1.department_id = d1.department_id
+INNER JOIN 
+    project p1
+    ON a1.project_id = p1.project_id
+WHERE
+    p1.project_status = 'Active'
+GROUP BY
+    e1.emp_id,
+    e1.emp_name,
+    d1.dept_name,
+    e1.country
+HAVING 
+    SUM(a1.allocation_pct) > 100
+ORDER BY
+    SUM(a1.allocation_pct) DESC;
