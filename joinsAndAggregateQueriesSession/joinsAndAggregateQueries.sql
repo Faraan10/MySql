@@ -115,6 +115,35 @@ ORDER BY
 
 
 
+-- Q9. Average Skill Proficiency by Department
+
+SELECT 
+   d1.dept_name,
+   s1.skill_name,
+   ROUND(AVG(emp1.proficiency_level), 2) AS 'avg_proficiency'
+FROM 
+   department d1
+INNER JOIN 
+   employee e1
+   ON d1.department_id = e1.department_id
+INNER JOIN
+   emp_skill emp1
+   ON emp1.emp_id = e1.emp_id
+INNER JOIN 
+   skill s1
+   ON emp1.skill_id = s1.skill_id
+WHERE 
+   emp1.verified_flag = 'Y'
+GROUP BY
+   d1.dept_name, 
+   s1.skill_name
+HAVING 
+   COUNT(DISTINCT e1.emp_id) >= 3
+ORDER BY
+   d1.dept_name,
+   s1.skill_name
+
+
 -- Q10. Overloaded Employees with Skill and Assignment Details
 
 SELECT
