@@ -279,6 +279,9 @@ SELECT * FROM actor_film_info; -- this is also called Virtual Tables
 
 
 -- we can do other operarions as well example below
+-- '%DINOSAUR%' anywhere if film name contains dinosaur
+-- '%DINOSAUR' starting with dinosaur
+-- 'DINOSAUR%' ending with dinosaur
 SELECT * FROM actor_film_info WHERE film_name LIKE '%DINOSAUR%';
 
 
