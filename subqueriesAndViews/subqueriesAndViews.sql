@@ -312,4 +312,25 @@ UPDATE active_students SET psp = 95 WHERE id = 11;
 
 
 
+-- Q & A
 
+SELECT
+    e1.employee_id,
+    e1.first_name,
+    e1.last_name,
+    e1.email,	
+    e1.phone_number,	
+    e1.hire_date,	
+    e1.job_id,
+    e1.salary,	
+    e1.commission_pct,
+    e1.manager_id,	
+    e1.department_id	
+FROM (
+    SELECT e2.* 
+    FROM employees e2
+    LEFT JOIN job_history jh1
+    ON e2.employee_id = jh1.employee_id
+    WHERE
+        jh1.employee_id IS NULL
+) AS e1;
