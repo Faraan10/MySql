@@ -1,3 +1,26 @@
+-- Q1. Job like sales
+
+SELECT 
+    e1.employee_id,
+    d1.department_name,
+    jh1.job_id,
+    j1.job_title,
+    j1.min_salary
+FROM employees e1
+INNER JOIN departments d1 ON
+    e1.department_id = d1.department_id
+JOIN job_history jh1 ON
+    e1.employee_id = jh1.employee_id
+INNER JOIN jobs j1 ON
+    j1.job_id = jh1.job_id
+WHERE 
+    j1.job_title LIKE '%sales%'
+    AND j1.min_salary >= 6000
+ORDER BY
+    e1.employee_id,
+    j1.min_salary;
+
+
 -- Q3. Joined first
 
 SELECT
