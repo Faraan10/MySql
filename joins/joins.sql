@@ -164,3 +164,26 @@ WHERE
     v1.article_id != v2.article_id 
     && v1.view_date = v2.view_date
 ORDER BY v1.viewer_id;
+
+
+
+
+
+-- Q4. Employees Earning More Than Their Managers
+
+-- here e1.id = e2.managerId means e1 employee is the manager of
+-- the employee e2, So joining table where e1 is the manager 
+-- of e2 employees
+
+
+-- example 2:
+-- e1.manager_id = e2.employee_id  ( means that e1 is the employee
+-- and e1's manager is employee e2 )
+SELECT 
+    e2.name AS 'Employee'
+FROM employee e1
+INNER JOIN employee e2 ON
+    e1.id = e2.managerId
+    AND e2.salary > e1.salary
+ORDER BY
+    e2.name;

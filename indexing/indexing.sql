@@ -1,20 +1,24 @@
--- Introduction to Indexing (Book Index analogy)
--- How Indexes Work
--- Data Structures Used for Indexing (HashMap -> BST -> B-Tree -> B+ Tree)
--- Types of Indexes (Clustered vs Non-Clustered)
--- Indexes on Multiple Columns (Composite Indexes)
--- Prefix R
--- ule
--- Cons of Indexing
--- Indexing on Strings (Prefix Indexes)
--- Self-Study: Full-Text Indexes
+--  Topics to be covered
+-- 1. Introduction to Indexing (Book Index analogy)
+-- 2. How Indexes Work
+-- 3. Data Structures Used for Indexing (HashMap -> BST -> B-Tree -> B+ Tree)
+-- 4. Types of Indexes (Clustered vs Non-Clustered)
+-- 5. Indexes on Multiple Columns (Composite Indexes)
+-- 6. Prefix R
+-- 7. ule
+-- 8. Cons of Indexing
+-- 9. Indexing on Strings (Prefix Indexes)
+-- 10. Self-Study: Full-Text Indexes
 
 
 -- Dense vs Sparse Index Problem
--- Dense Index (line-by-line): Every single line is listed in the index. The index itself
--- becomes as big as
--- the book -- defeats the purpose.
--- Sparse Index (multi-chapter): Very few entries. You still have to scan large sections of the book
+
+-- Dense Index (line-by-line): Every single line is listed in the 
+-- index. The index itself becomes as big as the book 
+-- defeats the purpose.
+
+-- Sparse Index (multi-chapter): Very few entries. You still 
+-- have to scan large sections of the book
 
 
 USE sakila;
