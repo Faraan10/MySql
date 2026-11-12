@@ -187,3 +187,17 @@ INNER JOIN employee e2 ON
     AND e2.salary > e1.salary
 ORDER BY
     e2.name;
+
+
+
+
+-- Q5. Article Views II
+SELECT
+    DISTINCT v1.viewer_id AS 'id'
+FROM views v1
+INNER JOIN views v2 ON
+    v1.viewer_id = v2.viewer_id
+    AND v1.article_id != v2.article_id
+    AND v1.view_date = v2.view_date
+ORDER BY
+    v1.viewer_id
