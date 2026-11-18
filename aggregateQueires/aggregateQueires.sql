@@ -231,3 +231,16 @@ HAVING
     COUNT(c1.student) >= 5
 ORDER BY
     c1.class DESC;
+
+
+-- Q4. Duplicate Emails
+
+SELECT
+    p1.email
+FROM Person p1
+GROUP BY
+    p1.email
+HAVING 
+    COUNT(*) > 1
+ORDER BY
+    p1.email;
