@@ -205,3 +205,29 @@ WHERE batches.id = students.batch_id;
 --  Removes rows entirely (can undo the outer join effect).
 
 
+
+-- Q2. Customer Placing the Largest Number of Orders
+
+SELECT
+    o1.customer_number
+FROM Orders o1
+GROUP BY
+    o1.customer_number
+ORDER BY
+    COUNT(*) DESC
+LIMIT
+    1;
+
+
+
+-- Q3. Classes More Than 5 Students
+
+SELECT
+    c1.class
+FROM courses c1
+GROUP BY
+    c1.class
+HAVING
+    COUNT(c1.student) >= 5
+ORDER BY
+    c1.class DESC;
