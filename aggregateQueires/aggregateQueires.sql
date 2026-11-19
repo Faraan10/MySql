@@ -244,3 +244,34 @@ HAVING
     COUNT(*) > 1
 ORDER BY
     p1.email;
+
+
+
+-- Q5. Actors and Directors Who Cooperated At Least Three Times
+
+SELECT 
+    a1.actor_id,
+    a1.director_id
+FROM actorDirector a1
+GROUP BY
+    a1.actor_id,
+    a1.director_id
+HAVING
+    COUNT(*) >= 3
+ORDER BY
+    a1.actor_id;
+
+
+-- Q6. Winning Candidate
+
+SELECT
+    c1.firstname
+FROM candidate c1
+INNER JOIN vote v1 ON
+    c1.id = v1.candidateId
+GROUP BY
+    c1.firstname
+ORDER BY
+    COUNT(v1.candidateId) DESC
+LIMIT 
+    1
